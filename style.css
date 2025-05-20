@@ -1,0 +1,706 @@
+/* พื้นฐาน */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Sarabun', 'Prompt', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f9d1d1, #e0c3fc, #d1c3fc, #fcb8d6);
+    background-size: 400% 400%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: gradientBG 15s ease infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50% }
+    50% { background-position: 100% 50% }
+    100% { background-position: 0% 50% }
+}
+
+/* เอฟเฟกต์หัวใจ */
+.hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.heart {
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff6b95"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center;
+    background-size: contain;
+    pointer-events: none;
+    opacity: 0.6;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(105vh) rotate(90deg);
+    }
+}
+
+/* คอนเทนเนอร์ */
+.container {
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    z-index: 10;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.92);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 
+                0 5px 15px rgba(212, 106, 191, 0.15);
+    overflow: hidden;
+    transform: translateY(0);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.5s ease;
+    animation: cardAppear 1s cubic-bezier(0.26, 1.36, 0.5, 1) forwards;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2),
+                0 10px 25px rgba(212, 106, 191, 0.2);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #e0c3fc, #c792ea);
+    padding: 20px 15px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-header:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+    animation: shimmer 6s infinite linear;
+}
+
+@keyframes shimmer {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.card-header h1 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.card-body {
+    padding: 30px 25px;
+}
+
+/* ข้อความ */
+.message {
+    background: linear-gradient(to right, #fcf7ff, #fff6fa);
+    border: 1px solid #e6d5f4;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(226, 185, 243, 0.15);
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.message:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(226, 185, 243, 0.25);
+}
+
+.message p {
+    color: #815c94;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+/* พื้นที่อินพุต */
+.input-area {
+    margin: 25px 0;
+}
+
+input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #e0c3fc;
+    border-radius: 12px;
+    font-size: 16px;
+    margin-bottom: 18px;
+    color: #5a5a5a;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(226, 185, 243, 0.1);
+}
+
+input:focus {
+    outline: none;
+    border-color: #f9a7d1;
+    box-shadow: 0 5px 15px rgba(249, 167, 209, 0.2);
+    transform: translateY(-2px);
+}
+
+button {
+    background: linear-gradient(45deg, #f9a7d1, #f9d1d1);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 20px;
+    width: 100%;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(249, 167, 209, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover {
+    background: linear-gradient(45deg, #f997c7, #f9c1c1);
+    box-shadow: 0 7px 20px rgba(249, 167, 209, 0.4);
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 10px rgba(249, 167, 209, 0.3);
+}
+
+button:before {
+    content: '';
+    position: absolute;
+    top: -180%;
+    left: 0;
+    width: 30px;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(20deg);
+    transition: all 0.7s ease;
+    filter: blur(5px);
+}
+
+button:hover:before {
+    left: 120%;
+}
+
+/* ผลลัพธ์ */
+.result {
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 500;
+    display: none;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.result.success {
+    background-color: #d4edda;
+    color: #155724;
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+    animation: pulse 2s infinite;
+    box-shadow: 0 5px 15px rgba(116, 243, 185, 0.2);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(116, 243, 185, 0.5);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(116, 243, 185, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(116, 243, 185, 0);
+    }
+}
+
+.result.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+    40%, 60% { transform: translate3d(3px, 0, 0); }
+}
+
+/* ส่วนวิดีโอ */
+.video-container {
+    margin-top: 25px;
+    border-radius: 15px;
+    overflow: hidden;
+    display: block;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.video-container.visible {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.hidden {
+    display: none;
+}
+
+video {
+    width: 100%;
+    border-radius: 15px;
+}
+
+/* คำใบ้ */
+.hint {
+    margin-top: 20px;
+    font-size: 15px;
+    color: #937da3;
+    text-align: center;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.hint:hover {
+    opacity: 1;
+}
+
+/* เอฟเฟกต์พลุและกระดาษสี */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+    display: none;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #f00;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.success-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+    display: none;
+}
+
+.success-animation.active {
+    display: block;
+}
+
+/* Loading animation */
+.loading {
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.loading div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    margin: 2px;
+    border: 2px solid #815c94;
+    border-radius: 50%;
+    animation: loading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #815c94 transparent transparent transparent;
+}
+
+.loading div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+
+.loading div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+
+.loading div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+@keyframes loading {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* animated text effect */
+.animated-text {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.3s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ส่วนของคำใบ้พิเศษ */
+.extra-hint-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.extra-hint-container.fade-in {
+    opacity: 1;
+}
+
+.extra-hint-container.fade-out {
+    opacity: 0;
+}
+
+.extra-hint-box {
+    background: linear-gradient(135deg, #fff6fa, #fcf7ff);
+    max-width: 90%;
+    width: 350px;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+    transform: translateY(20px);
+    animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes bounceIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.extra-hint-box h3 {
+    color: #815c94;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.extra-hint-box p {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.cipher-hint {
+    background-color: #fef0ff;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.cipher-hint span {
+    background-color: #f3e0ff;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-family: monospace;
+    font-size: 16px;
+    color: #815c94;
+}
+
+.blinking-highlight {
+    animation: blinkHighlight 1.5s infinite;
+}
+
+@keyframes blinkHighlight {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 107, 149, 0);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 107, 149, 0.8);
+    }
+}
+
+.close-hint {
+    background: linear-gradient(45deg, #f9a7d1, #c792ea);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-top: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-hint:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(249, 167, 209, 0.4);
+}
+
+/* ส่วนการ์ดความรัก */
+.love-card {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.love-card.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.love-card.fade-out {
+    opacity: 0;
+}
+
+.love-card-content {
+    background: linear-gradient(135deg, #fff6fa, #ffebf3);
+    width: 90%;
+    max-width: 380px;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 5px 30px rgba(255, 107, 149, 0.5);
+    text-align: center;
+    position: relative;
+    animation: heartBeat 1.5s ease-in-out;
+}
+
+@keyframes heartBeat {
+    0% {
+        transform: scale(0);
+    }
+    25% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    75% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.close-card {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #ff6b95;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-card:hover {
+    color: #ff4c7d;
+    transform: scale(1.2);
+}
+
+.love-card-content h2 {
+    color: #ff4c7d;
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.love-message {
+    color: #815c94;
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.love-signature {
+    display: block;
+    margin-top: 15px;
+    font-style: italic;
+    font-size: 16px;
+    color: #ff4c7d;
+}
+
+.floating-hearts {
+    position: relative;
+    height: 60px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.floating-heart {
+    position: absolute;
+    font-size: 24px;
+    animation: floatUpDown 4s ease-in-out infinite;
+}
+
+@keyframes floatUpDown {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+.love-pulse {
+    display: inline-block;
+    animation: lovePulse 1.5s infinite;
+}
+
+@keyframes lovePulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.success-emoji {
+    display: inline-block;
+    animation: rotate 1s infinite;
+    margin-right: 5px;
+    font-size: 1.2em;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(20deg);
+    }
+    75% {
+        transform: rotate(-20deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.heart-pulse {
+    display: inline-block;
+    animation: heartPulse 1s infinite;
+}
+
+@keyframes heartPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.overlay-active {
+    overflow: hidden;
+}
+
+/* รองรับมือถือ */
+@media (max-width: 480px) {
+    .card-body {
+        padding: 20px 18px;
+    }
+    
+    .card-header h1 {
+        font-size: 22px;
+    }
+    
+    .message p {
+        font-size: 16px;
+    }
+    
+    input, button {
+        padding: 12px 15px;
+    }
+}
