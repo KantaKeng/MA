@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข้อความลับพิเศษสำหรับเบบี๋</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1>ข้อความพิเศษสำหรับบะบี๋ 💌</h1>
+            </div>
+            
+            <div class="card-body">
+                <div class="message">
+                    <p>วันนี้มีข้อความพิเศษจากเค้า แต่เธอต้องถอดรหัสให้ได้ก่อนน้า </p>
+                </div>
+                
+                <div class="input-area">
+                    <input type="text" id="cipherInput" placeholder="กรอกข้อความเข้ารหัส..." value="">
+                    <button id="decryptBtn">ถอดรหัส</button>
+                </div>
+                
+                <div id="result" class="result"></div>
+                
+                <div id="videoContainer" class="video-container hidden">
+                    <video id="videoPlayer" controls>
+                        <source src="videona.mp4" type="video/mp4">
+                        เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+                    </video>
+                </div>
+                
+                <p class="hint">*คำใบ้: "ไอ  เลิฟ  ยู  น้า  เบ  บี๋  คน สวย" บี๋ต้องเอาคำข้างในเปลี่ยนเป็นภาษาอังกฤษก่อนน้า ถ้าเสร็จแล้วบอกเค้าา </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
